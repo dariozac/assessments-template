@@ -1,16 +1,32 @@
 import * as React from "react";
 import axios from "axios";
 import RemovedCountries from "./RemovedCountries";
-import { Country } from "./Country";
-import SelectedDetail from "./SelectedDetail";
+import { Country } from "./schemas/Country";
 import CountryLineItem from "./CountryLineItem";
 import styled from "styled-components";
 
 type CountryFilter = string | undefined;
 
 const AppContainer = styled.div`
-  border: 5px solid red;
+  border: 5px solid #56b6c2;
+  color: #abb2bf;
+  background: #282c34;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  padding: 25px;
 `;
+
+const SearchFilterBox = styled.input`
+  font-size: 2em;
+  text-align: center;
+`;
+
+const SortButton = styled.button`
+  border: 1px solid  #56b6c2;
+  background-color:  #abb2bf;
+  color:  #282c34;
+`;
+
 export default function App() {
   const [countries, setCountries] = React.useState<Country[]>([]);
   const [countryFilter, setCountryFilter] = React.useState<CountryFilter>("");
@@ -19,12 +35,21 @@ export default function App() {
     col: "population",
     dir: "DESC"
   });
+
   const [selectedCountry, setSelectedCountry] = React.useState<
     Country | undefined
   >(undefined);
-  function customSort(a: Country, b: Country) {
-    return b[sort.col] - a[sort.col];
+
+  function customSort(a: Country, b: Country): number {
+    if (sort.dir === 'DESC') {
+      return b.population - a.population;
+    }
+    if (sort.dir === 'ASC') {
+      return a.population - b.population;
+    }
+    return 0
   }
+
   const customFilter = (country: Country) => {
     return (
       countryFilter !== undefined &&
@@ -32,6 +57,7 @@ export default function App() {
         country.alpha3Code.toLocaleLowerCase().includes(countryFilter.trim()))
     );
   };
+
   React.useEffect(() => {
     async function fetchData() {
       const result = await axios("https://restcountries.eu/rest/v2/all");
@@ -43,57 +69,41 @@ export default function App() {
   const display = () => {
     return countries.length > 1
       ? countries
-          .filter(
-            (country: Country) => removedCountries.includes(country) === false
-          )
-          .filter(customFilter)
-          .sort(customSort)
-          .map((country) => {
-            const isSelected =
-              country.alpha3Code === selectedCountry?.alpha3Code;
-            return (
-              <CountryLineItem
-                country={country}
-                onClick={() => setSelectedCountry(country)}
-                key={country.alpha3Code}
-                style={{ backgroundColor: isSelected ? "darkgrey" : null }}
-              >
-                {country.alpha3Code}
-                <img
-                  onClick={() =>
-                    setRemovedCountries([...removedCountries, country])
-                  }
-                  width="35px"
-                  style={{ border: "0.5px solid grey" }}
-                  alt={`Flag of ${country.name}`}
-                  src={country.flag}
-                />
-                {country.name}
-                {isSelected && <SelectedDetail country={country} />}
-              </CountryLineItem>
-            );
-          })
+        .filter(
+          (country: Country) => removedCountries.includes(country) === false
+        )
+        .filter(customFilter)
+        .sort(customSort)
+        .map((country) => {
+          const isSelected =
+            country.alpha3Code === selectedCountry?.alpha3Code;
+          return (
+            <CountryLineItem isSelected={isSelected} country={country} setSelectedCountry={setSelectedCountry} removedCountries={removedCountries} setRemovedCountries={setRemovedCountries} />
+
+
+          );
+        })
       : "no countries set";
   };
 
   return (
     <AppContainer>
-      <h1>Hello CodeSandbox</h1>
+      <h1>Country Intelligence</h1>
       <h2>{selectedCountry?.name}</h2>
       <RemovedCountries
         removedCountries={removedCountries}
         setRemovedCountries={setRemovedCountries}
       />
-      <p>{countryFilter}</p>
-      <input
+      <p>{countryFilter &&  `List filtered by: ${countryFilter}`}</p>
+      <SearchFilterBox
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setCountryFilter(e.target.value.toLocaleLowerCase())
         }
       />
       <div>
-        <button onClick={() => setSort({ col: "population", dir: "ASC" })}>
-          Population Sort
-        </button>
+        <SortButton onClick={() => setSort({ ...sort, dir: `${sort.dir === "ASC" ? "DESC" : "ASC"}` })}>
+          {`Population Sort ${sort.dir}`}
+        </SortButton>
       </div>
       <ul>{display()}</ul>
     </AppContainer>
