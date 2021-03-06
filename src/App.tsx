@@ -50,7 +50,7 @@ export default function App() {
     return 0
   }
 
-  const customFilter = (country: Country) => {
+ export const customFilter = (country: Country) => {
     return (
       countryFilter !== undefined &&
       (country.name.toLocaleLowerCase().includes(countryFilter.trim()) ||
@@ -88,8 +88,8 @@ export default function App() {
 
   return (
     <AppContainer>
-      <h1>Country Intelligence</h1>
-      <h2>{selectedCountry?.name}</h2>
+      <h1>Country Intelligence {selectedCountry ? `- ${selectedCountry.name}, (Pop. ${selectedCountry.population})` : null}</h1>
+   
       <RemovedCountries
         removedCountries={removedCountries}
         setRemovedCountries={setRemovedCountries}

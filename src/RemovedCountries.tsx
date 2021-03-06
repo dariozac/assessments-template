@@ -25,7 +25,7 @@ export default function RemovedCounties({
                     )
                   ])
                 }
-                width="35px"
+                width="15px"
                 style={{ border: "0.5px solid grey" }}
                 alt={`Flag of ${country.name}`}
                 src={country.flag}
@@ -36,9 +36,8 @@ export default function RemovedCounties({
       : "no countries set";
   };
   return (
-    <div style={{ border: "2px red solid" }}>
-      <h4>Excluded countries</h4>
-      {display()}
+    <div>
+      {removedCountries.length > 0 && display()}
     </div>
   );
 }
