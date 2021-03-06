@@ -24,7 +24,18 @@ const SelectedDetail = (props: Props) => {
     <SelectedDetailContainer>
       <Card>
         <div className="title">Population</div>
-        {props.country.population}
+        {props.country.population.toLocaleString()}
+      </Card>
+      <Card>
+        <div className="title">Capital City</div>
+        {props.country.capital}
+      </Card>
+      <Card>
+        <div className="title">Currencies</div>
+       
+        {props.country.currencies.map((currency, i) => {
+          return<Card key={i}>{currency.code}</Card>
+        })}
       </Card>
 
     </SelectedDetailContainer>

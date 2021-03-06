@@ -17,6 +17,8 @@ const AppContainer = styled.div`
 `;
 
 const SearchFilterBox = styled.input`
+border: 1px solid  #56b6c2;
+background-color:  #abb2bf;
   font-size: 2em;
   text-align: center;
 `;
@@ -50,7 +52,7 @@ export default function App() {
     return 0
   }
 
- export const customFilter = (country: Country) => {
+  const customFilter = (country: Country) => {
     return (
       countryFilter !== undefined &&
       (country.name.toLocaleLowerCase().includes(countryFilter.trim()) ||
