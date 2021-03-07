@@ -90,7 +90,7 @@ export default function App() {
 
   return (
     <AppContainer>
-      <h1>Country Intelligence {selectedCountry ? `- ${selectedCountry.name}, (Pop. ${selectedCountry.population})` : null}</h1>
+      <h1>Country Intelligence</h1><small>{selectedCountry ? `- ${selectedCountry.name}, (Pop. ${selectedCountry.population.toLocaleString()})` : null}</small>
    
       <RemovedCountries
         removedCountries={removedCountries}

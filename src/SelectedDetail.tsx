@@ -9,6 +9,8 @@ const SelectedDetailContainer = styled.div`
   background-color: #5c6370;
   color: whitesmoke;
   min-height: 50px;
+  display:flex;
+  flex-direction:row;
 `;
 
 const Card = styled.div`
@@ -32,10 +34,14 @@ const SelectedDetail = (props: Props) => {
       </Card>
       <Card>
         <div className="title">Currencies</div>
-       
-        {props.country.currencies.map((currency, i) => {
-          return<Card key={i}>{currency.code}</Card>
+       <ul>
+       {props.country.currencies.map((currency, i) => {
+          return <li key={i}>
+            {currency.code} {currency.symbol} {currency.name}
+            </li>
         })}
+       </ul>
+  
       </Card>
 
     </SelectedDetailContainer>

@@ -7379,6 +7379,11 @@ npm-run-path@^2.0.0:
   dependencies:
     path-key "^2.0.0"
 
+nsw@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/nsw/-/nsw-0.1.0.tgz#485ec9e6d97cb13580143b63e5b72737053f616e"
+  integrity sha512-s8hv/E60evZNDFNlUq770SylMgY1yX1ckGgghZ5J/DSGTT8Hml0ngo+liDO17XlmH/ujbBjtJrpw8d1nWbb5EA==
+
 nth-check@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
