@@ -43,6 +43,8 @@ export default function App() {
     dir: 'DESC'
   });
 
+  const MemoizedRemovedCountries = React.memo(RemovedCountries);
+
   const [selectedCountry, setSelectedCountry] = React.useState<Country | undefined>(undefined);
 
   const customSort = (a: Country, b: Country): number => {
@@ -101,7 +103,7 @@ export default function App() {
       {/* <small>
         {selectedCountry ? `- ${selectedCountry.name}, (Pop. ${selectedCountry.population.toLocaleString()})` : null}
       </small> */}
-      <RemovedCountries removedCountries={removedCountries} setRemovedCountries={setRemovedCountries} />
+      <MemoizedRemovedCountries removedCountries={removedCountries} setRemovedCountries={setRemovedCountries} />
       <p>{countryFilter && `List filtered by: ${countryFilter}`}</p>
       <SearchFilterBox
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCountryFilter(e.target.value.toLocaleLowerCase())}
