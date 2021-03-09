@@ -14,19 +14,24 @@ const AppContainer = styled.div`
   font-family: Consolas, 'Courier New', monospace;
   font-size: 14px;
   padding: 25px;
+  height: 100vh;
 `;
 
 const SearchFilterBox = styled.input`
   border: 1px solid #56b6c2;
   background-color: #abb2bf;
-  font-size: 2em;
+  font-size: 1em;
   text-align: center;
+  padding:10px;
+  margin: 5px;
 `;
 
 const SortButton = styled.button`
   border: 1px solid #56b6c2;
   background-color: #abb2bf;
   color: #282c34;
+  padding:10px;
+  margin: 5px;
 `;
 
 export default function App() {
@@ -54,6 +59,7 @@ export default function App() {
     return (
       countryFilter !== undefined &&
       (country.name.toLocaleLowerCase().includes(countryFilter.trim()) ||
+        country.alpha2Code.toLocaleLowerCase().includes(countryFilter.trim()) ||
         country.alpha3Code.toLocaleLowerCase().includes(countryFilter.trim()))
     );
   };
@@ -91,22 +97,25 @@ export default function App() {
 
   return (
     <AppContainer>
-      <h1>Country Intelligence</h1>
-      <small>
+      <h1>Country Reference</h1>
+      {/* <small>
         {selectedCountry ? `- ${selectedCountry.name}, (Pop. ${selectedCountry.population.toLocaleString()})` : null}
-      </small>
-
+      </small> */}
       <RemovedCountries removedCountries={removedCountries} setRemovedCountries={setRemovedCountries} />
       <p>{countryFilter && `List filtered by: ${countryFilter}`}</p>
       <SearchFilterBox
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCountryFilter(e.target.value.toLocaleLowerCase())}
+        placeholder="filter list"
       />
       <div>
-        <SortButton onClick={() => setSort({ ...sort, dir: `${sort.dir === 'ASC' ? 'DESC' : 'ASC'}` })}>
-          {`Population Sort ${sort.dir}`}
+        <SortButton
+          onClick={() => setSort({ ...sort, dir: `${sort.dir === 'ASC' ? 'DESC' : 'ASC'}` })}
+          title={`click for ${sort.dir === 'ASC' ? 'DESC' : 'ASC'}`}
+        >
+          {` Sorted by Population ${sort.dir}`}
         </SortButton>
       </div>
-      <ul role="ul">{display()}</ul>
+      <ul>{display()}</ul>
     </AppContainer>
   );
 }

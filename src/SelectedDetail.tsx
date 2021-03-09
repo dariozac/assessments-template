@@ -6,7 +6,7 @@ interface Props {
   country: Country;
 }
 const SelectedDetailContainer = styled.div`
-  background-color: #5c6370;
+  background-color: #abb2bf;
   color: whitesmoke;
   min-height: 50px;
   display:flex;
@@ -14,36 +14,45 @@ const SelectedDetailContainer = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: #61aeee;
+  color: #abb2bf;
+  background-color: #282c34
+  padding: 5px;
+  margin: 5px;
+  border:  #abb2bf 1px solid;
+`;
+
+const CardTitle = styled.div`
+  background-color: #abb2bf;
+  color: #282c34;
+  text-weight: bold;
+`;
+
+const CardBody = styled.div`
+  background-color: #abb2bf;
   color: #282c34
-  "&.title" {
-    background: black
-  }
 `;
 
 const SelectedDetail = (props: Props) => {
   return (
     <SelectedDetailContainer>
       <Card>
-        <div className="title">Population</div>
-        {props.country.population.toLocaleString()}
+      <CardTitle>Population</CardTitle>
+      <CardBody>{props.country.population.toLocaleString()}</CardBody>
       </Card>
       <Card>
-        <div className="title">Capital City</div>
-        {props.country.capital}
+        <CardTitle>Capital City</CardTitle>
+        <CardBody>{props.country.capital}</CardBody>
       </Card>
       <Card>
-        <div className="title">Currencies</div>
-       <ul>
+      <CardTitle>Currencies</CardTitle>
+       <CardBody>
        {props.country.currencies.map((currency, i) => {
-          return <li key={i}>
+          return <div style={{listStyle: 'none'}} key={i}>
             {currency.code} {currency.symbol} {currency.name}
-            </li>
+            </div>
         })}
-       </ul>
-  
+       </CardBody>
       </Card>
-
     </SelectedDetailContainer>
   );
 };

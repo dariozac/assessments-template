@@ -14,9 +14,8 @@ export default function RemovedCounties({
     return removedCountries.length > 0
       ? removedCountries.map((country) => {
           return (
-            <p key={country.alpha3Code + country.name}>
-              {country.name}
-              <img
+       
+              <img key={country.alpha3Code + country.name}
                 onClick={() =>
                   setRemovedCountries([
                     ...removedCountries.filter(
@@ -29,14 +28,16 @@ export default function RemovedCounties({
                 style={{ border: "0.5px solid grey" }}
                 alt={`Flag of ${country.name}`}
                 src={country.flag}
+                title={`${country.name} click to return to list`}
               />
-            </p>
+           
           );
         })
       : "no countries set";
   };
   return (
     <div>
+      {removedCountries.length > 0 && <div>Removed Countries ({`${removedCountries.length}`})</div>}
       {removedCountries.length > 0 && display()}
     </div>
   );
