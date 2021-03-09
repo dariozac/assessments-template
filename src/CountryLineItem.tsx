@@ -33,7 +33,7 @@ const CountryLineItem = ({ country, setSelectedCountry, isSelected, removedCount
         <img width="15px" style={{ border: '0.5px solid grey' }} alt={`Flag of ${country.name}`} src={country.flag} />
       </span>
       {country.name}
-      <span title="remove country from" style={{padding: 5, color: 'red', cursor: 'pointer'}} onClick={() => setRemovedCountries([...removedCountries, country])}>X</span>
+      <span title="remove country" style={{padding: 5, color: 'red', cursor: 'pointer'}} onClick={() => setRemovedCountries([...removedCountries, country])}>X</span>
       {isSelected && <SelectedDetail country={country} />}
     </div>
   );

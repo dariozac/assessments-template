@@ -103,7 +103,7 @@ export default function App() {
       {/* <small>
         {selectedCountry ? `- ${selectedCountry.name}, (Pop. ${selectedCountry.population.toLocaleString()})` : null}
       </small> */}
-      <MemoizedRemovedCountries removedCountries={removedCountries} setRemovedCountries={setRemovedCountries} />
+      <MemoizedRemovedCountries removedCountries={removedCountries} setRemovedCountries={setRemovedCountries} setSelectedCountry={setSelectedCountry} />
       <p>{countryFilter && `List filtered by: ${countryFilter}`}</p>
       <SearchFilterBox
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCountryFilter(e.target.value.toLocaleLowerCase())}
