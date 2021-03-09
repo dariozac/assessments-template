@@ -14,7 +14,7 @@ const AppContainer = styled.div`
   font-family: Consolas, 'Courier New', monospace;
   font-size: 14px;
   padding: 25px;
-  height: 100vh;
+  height: 100%;
 `;
 
 const SearchFilterBox = styled.input`

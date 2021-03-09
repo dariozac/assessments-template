@@ -13,8 +13,6 @@ interface Props {
 
 const CountryLineItem = ({ country, setSelectedCountry, isSelected, removedCountries, setRemovedCountries }: Props) => {
   return (
-
-
     <div
       style={{ padding: 5, backgroundColor: `${isSelected ? '#abb2bf' : '#282c34'}`, color: `${isSelected ? '#282c34' :'#abb2bf'}`}}
       key={country.alpha3Code}
