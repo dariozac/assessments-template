@@ -100,9 +100,7 @@ export default function App() {
   return (
     <AppContainer>
       <h1>Country Reference</h1>
-      {/* <small>
-        {selectedCountry ? `- ${selectedCountry.name}, (Pop. ${selectedCountry.population.toLocaleString()})` : null}
-      </small> */}
+      
       <MemoizedRemovedCountries removedCountries={removedCountries} setRemovedCountries={setRemovedCountries} setSelectedCountry={setSelectedCountry} />
       <p>{countryFilter && `List filtered by: ${countryFilter}`}</p>
       <SearchFilterBox
