@@ -21,50 +21,29 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test('loads and displays title and sort button', async () => {
+test('loads and displays title and sort button, tests sorting and filtering', async () => {
   render(<App />);
-
-  //const countryLineItems = screen.getAllByRole('ul');
-  //expect(countryLineItems).toHaveLength(1);
-
   const countryLineItems = await screen.findAllByTestId('countryLineItem');
 
   expect(countryLineItems).toHaveLength(16);
 
   // the test file contains only coutries beginning with "A"
-
   // expect the largest population to be ARGENTINA
   expect(countryLineItems[0]).toHaveTextContent('ARG');
 
-  expect(screen.getByRole('heading')).toHaveTextContent('Country Intelligence');
-  expect(screen.getByRole('button')).toHaveTextContent('Population Sort');
+  expect(screen.getByRole('heading')).toHaveTextContent('Country Reference');
+  expect(screen.getByRole('button')).toHaveTextContent('Sorted by Population');
 
   fireEvent.click(screen.getByRole('button'));
 
   const countryLineItemsSortedByPopulationASC = await screen.findAllByTestId('countryLineItem');
- // expect the smallest population to be ANTARCTICA
-  expect(countryLineItemsSortedByPopulationASC[0]).toHaveTextContent('ATA'); 
-  
-  
+  // expect the smallest population to be ANTARCTICA
+  expect(countryLineItemsSortedByPopulationASC[0]).toHaveTextContent('ATA');
 
-
-
-
+  // Test the filter input with value 'aus' which I expect to be 2 results of Austria and Australia
+  fireEvent.change(screen.getByPlaceholderText('filter list'), { target: { value: 'aus' } });
+  const countryLineItemsFiltered = await screen.findAllByTestId('countryLineItem');
+  expect(countryLineItemsFiltered).toHaveLength(2);
+  expect(countryLineItemsFiltered[0]).toHaveTextContent('AUT');
+  expect(countryLineItemsFiltered[1]).toHaveTextContent('AUS');
 });
-
-// test('handles server error', async () => {
-//   server.use(
-//     rest.get('https://restcountries.eu/rest/v2/all', (req, res, ctx) => {
-//       return res(ctx.status(500))
-//     })
-//   )
-
-//   act(() => {
-//     render(<App />)
-//   });
-
-//   //fireEvent.click(screen.getByText('Load Greeting'))
-
-//   await waitFor(() => screen.getByText('no countries'))
-
-// })
